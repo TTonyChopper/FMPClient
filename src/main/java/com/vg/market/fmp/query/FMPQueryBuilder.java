@@ -8,8 +8,8 @@ public class FMPQueryBuilder
 
     private final String key;
 
-    public FMPQueryBuilder() {
-        this.key = "14y738256r4f9e9f1407a2ff0d642l774";
+    public FMPQueryBuilder(String key) {
+        this.key = key;
     }
 
     public String get(ApiFunction function, List<String> params) {

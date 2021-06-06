@@ -2,8 +2,10 @@ package com.vg.market;
 
 import com.vg.market.fmp.query.ApiFunction;
 import com.vg.market.fmp.query.FMPQueryBuilder;
+import io.vertx.config.ConfigRetriever;
 import io.vertx.core.*;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.client.WebClient;
 import org.slf4j.Logger;
@@ -16,7 +18,7 @@ public class FMPVerticle extends AbstractVerticle {
 
     private static final Logger log = LoggerFactory.getLogger("SampleLogger");
 
-    private FMPQueryBuilder queryBuilder = new FMPQueryBuilder();
+    private FMPQueryBuilder queryBuilder;
 
     private HttpServer httpServer;
 
@@ -29,6 +31,16 @@ public class FMPVerticle extends AbstractVerticle {
     public void start() {
         WebClient client = WebClient.create(vertx);
         final Router router = Router.router(vertx);
+
+        ConfigRetriever retriever = ConfigRetriever.create(vertx);
+        retriever.getConfig(ar -> {
+            if (ar.failed()) {
+                // Failed to retrieve the configuration
+            } else {
+                JsonObject config = ar.result();
+                queryBuilder = new FMPQueryBuilder(config.getString("apikey"));
+            }
+        });
 
         ApiFunction.getMap().forEach((k, v)->{
             router.route("/raw" + k).handler(ctx -> {
