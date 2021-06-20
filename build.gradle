@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'application'
 	id 'io.vertx.vertx-plugin' version '0.0.4'
+	id 'com.github.johnrengelman.shadow' version '4.0.1'
 }
 
 compileJava   {

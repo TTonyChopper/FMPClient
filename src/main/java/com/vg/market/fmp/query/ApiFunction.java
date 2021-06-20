@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+// https://financialmodelingprep.com/developer/docs/
 public enum ApiFunction
 {
     Quote("/quote", "quote", FunctionParam.SYMBOL),
