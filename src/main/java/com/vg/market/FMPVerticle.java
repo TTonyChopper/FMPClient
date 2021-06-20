@@ -86,8 +86,8 @@ public class FMPVerticle extends AbstractVerticle {
         });
 
         httpServer = vertx.createHttpServer();
-        httpServer.requestHandler(router).listen(8086).onFailure(
-                h -> System.out.println("HTTP server failed on port 8086"));
+        httpServer.requestHandler(router).listen(9092).onFailure(
+                h -> System.out.println("HTTP server failed on port 9092"));
     }
 
     @Override
